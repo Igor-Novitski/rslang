@@ -1,7 +1,7 @@
 import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {IWord, userWord} from "../../../../../types";
 import {AudioService} from "../../../../services/audio.service";
-import {ApiService} from "../../../../services/api.service";
+import {ApiService, BASE_URL} from "../../../../services/api.service";
 
 @Component({
   selector: 'app-audio-game-play',
@@ -76,7 +76,7 @@ export class AudioGamePlayComponent implements OnInit {
     this.getWrongWords();
     this.currentWords.push(this.wordsForGame[this.index], ...this.wrongWords);
     this.currentWords.sort(() => Math.random() - 0.5);
-    this.sound = new Audio(`https://app-learnwords-rslang.herokuapp.com/${this.wordsForGame[this.index].audio}`);
+    this.sound = new Audio(`${BASE_URL}/${this.wordsForGame[this.index].audio}`);
     this.sound.play();
     this.index++;    
   }

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵnoSideEffects } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoggedUser, User, IWord, userWord, Word } from 'src/types';
 
+export const BASE_URL = 'https://learnlangapp1.herokuapp.com';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ApiService {
 
   public createUser(user: User): Observable<User> {
     return this.http.post<User>(
-      'https://app-learnwords-rslang.herokuapp.com/users',
+      `${BASE_URL}/users`,
       {
         'name': user.name,
         'email': user.email,
@@ -24,7 +25,7 @@ export class ApiService {
 
   public loginUser(user: User): Observable<LoggedUser> {
     return this.http.post<LoggedUser>(
-      'https://app-learnwords-rslang.herokuapp.com/signin',
+      `${BASE_URL}/signin`,
       {
         'email': user.email,
         'password': user.password
@@ -34,7 +35,7 @@ export class ApiService {
 
   public getWords(group: number, page: number): Observable<IWord[]> {
     return this.http.get<IWord[]>(
-      'https://app-learnwords-rslang.herokuapp.com/words',
+      `${BASE_URL}/words`,
       {
         params: {
           'group': group,
@@ -46,7 +47,7 @@ export class ApiService {
 
   public getWord(wordId: string): Observable<IWord> {
     return this.http.get<IWord>(
-      `https://app-learnwords-rslang.herokuapp.com/words/${wordId}`
+      `${BASE_URL}/words/${wordId}`
     )
   }
 
@@ -56,7 +57,7 @@ export class ApiService {
     localStorage.setItem('studWords', `${+localStorage.getItem('studWords')!+1}`);
     }
     return this.http.post<object>(
-      `https://app-learnwords-rslang.herokuapp.com/users/${userId}/words/${wordId}`,
+      `${BASE_URL}/users/${userId}/words/${wordId}`,
         word,
       {headers:myHeaders}
     )
@@ -68,7 +69,7 @@ export class ApiService {
       localStorage.setItem('studWords', `${+localStorage.getItem('studWords')!+1}`);
       }
     return this.http.put<object>(
-      `https://app-learnwords-rslang.herokuapp.com/users/${userId}/words/${wordId}`,
+      `${BASE_URL}/users/${userId}/words/${wordId}`,
         word,
       {headers:myHeaders}
     )
@@ -80,7 +81,7 @@ export class ApiService {
     localStorage.setItem('studWords', `${+localStorage.getItem('studWords')!-1}`);
     }
     return this.http.delete<object>(
-      `https://app-learnwords-rslang.herokuapp.com/users/${userId}/words/${wordId}`,
+      `${BASE_URL}/users/${userId}/words/${wordId}`,
       {headers:myHeaders}
     )
   }
@@ -88,7 +89,7 @@ export class ApiService {
   public getUserWords(userId: string): Observable<userWord[]> {
     const myHeaders = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
     return this.http.get<userWord[]>(
-      `https://app-learnwords-rslang.herokuapp.com/users/${userId}/words`,
+      `${BASE_URL}/users/${userId}/words`,
       {headers:myHeaders}
     )
   }
@@ -96,7 +97,7 @@ export class ApiService {
   public getUserWord(userId: string, wordId: string): Observable<userWord> {
     const myHeaders = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
     return this.http.get<userWord>(
-      `https://app-learnwords-rslang.herokuapp.com/users/${userId}/words/${wordId}`,
+      `${BASE_URL}/users/${userId}/words/${wordId}`,
       {headers:myHeaders}
     )
   }

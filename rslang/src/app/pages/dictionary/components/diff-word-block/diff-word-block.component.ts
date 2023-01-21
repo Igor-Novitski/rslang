@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { IWord } from '../../../../../types/index';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService, BASE_URL } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-diff-word-block',
@@ -33,15 +33,15 @@ export class DiffWordBlockComponent implements OnInit {
   exampleSound: string;
 
   updateBlock() {
-    this.img =  {'background-image': `url(https://app-learnwords-rslang.herokuapp.com/${this.wordInstance.image})`};
+    this.img =  {'background-image': `url(${BASE_URL}/${this.wordInstance.image})`};
     this.word = `${this.wordInstance.word} - ${this.wordInstance.transcription} - ${this.wordInstance.wordTranslate}`;
     this.meaningEn = this.wordInstance.textMeaning;
     this.meaningRu = this.wordInstance.textMeaningTranslate;
     this.exampleEn = this.wordInstance.textExample;
     this.exampleRu = this.wordInstance.textExampleTranslate;
-    this.wordSound = `https://app-learnwords-rslang.herokuapp.com/${this.wordInstance.audio}`;
-    this.meaningSound = `https://app-learnwords-rslang.herokuapp.com/${this.wordInstance.audioMeaning}`;
-    this.exampleSound = `https://app-learnwords-rslang.herokuapp.com/${this.wordInstance.audioExample}`;
+    this.wordSound = `${BASE_URL}/${this.wordInstance.audio}`;
+    this.meaningSound = `${BASE_URL}/${this.wordInstance.audioMeaning}`;
+    this.exampleSound = `${BASE_URL}/${this.wordInstance.audioExample}`;
   }
 
   sound() {
